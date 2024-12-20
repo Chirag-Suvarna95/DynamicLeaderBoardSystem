@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Leaderboard - Leaderboard</title>
+    <link rel="stylesheet" href="leaderboard.css"> <!-- Link to leaderboard.css -->
+</head>
+<body>
+    <h1>Leaderboard</h1>
+
+    <!-- Score Submission Form -->
+    <div id="score-submission">
+        <h2>Submit Your Score</h2>
+        <form id="score-form">
+            <input type="number" id="score-input" placeholder="Enter Score" required>
+            <button type="submit">Submit Score</button>
+        </form>
+        <div id="submission-feedback"></div>
+    </div>
+
+    <table id="leaderboard">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Score</th>
+                <th>Date</th>
+                <th>Action</th> <!-- Added Action Header for Delete -->
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+      // Function to fetch leaderboard data
+      async function fetchLeaderboard() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const gameId = urlParams.get('gameId');
+          
+          const response = await fetch(`http://localhost:3000/leaderboard/${gameId}`);
+          if (response.ok) {
+              const leaderboardData = await response.json();
+              const tbody = document.querySelector('#leaderboard tbody');
+              tbody.innerHTML = ''; // Clear existing rows
+
+              // Get user ID from token
+              const token = localStorage.getItem('token');
+              let userId;
+              if (token) {
+                  userId = JSON.parse(atob(token.split('.')[1])).id; // Extract user ID from token
+              }
+
+              leaderboardData.forEach((entry, index) => {
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
+                      <td>${index + 1}</td>
+                      <td>${entry.username}</td>
+                      <td>${entry.score}</td>
+                      <td>${new Date(entry.date_achieved).toLocaleString()}</td>`;
+                  
+                  // Add a delete button only for scores belonging to the logged-in user
+                  if (userId === entry.user_id) { // Check if this score belongs to the logged-in user
+                      const deleteButton = document.createElement('button');
+                      deleteButton.innerText = 'Delete';
+                      deleteButton.onclick = () => deleteScore(entry.id); // Call delete function with score ID
+                      const actionCell = document.createElement('td');
+                      actionCell.appendChild(deleteButton);
+                      row.appendChild(actionCell);
+                  } else {
+                      row.appendChild(document.createElement('td')); // Empty cell for non-owners
+                  }
+                  
+                  tbody.appendChild(row);
+              });
+          } else {
+              alert('Failed to load leaderboard.');
+          }
+      }
+
+      // Function to submit score
+      document.getElementById('score-form').addEventListener('submit', async function(event) {
+          event.preventDefault();
+          
+          const urlParams = new URLSearchParams(window.location.search);
+          const gameId = urlParams.get('gameId');
+          const score = document.getElementById('score-input').value;
+          const token = localStorage.getItem('token'); // Get the token from local storage
+
+          if (!token) {
+              alert('You must be logged in to submit a score.');
+              return;
+          }
+
+          // Decode the token to get the user ID
+          const userId = JSON.parse(atob(token.split('.')[1])).id; // Extract user ID from token
+
+          const response = await fetch('http://localhost:3000/submit-score', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}` // Send token for authentication
+              },
+              body: JSON.stringify({ game_id: gameId, score, user_id: userId })
+          });
+
+          if (response.ok) {
+              document.getElementById('submission-feedback').innerText = 'Score submitted successfully!';
+              fetchLeaderboard(); // Refresh leaderboard after submission
+              document.getElementById('score-input').value = ''; // Clear input field
+          } else {
+              const errorData = await response.json();
+              document.getElementById('submission-feedback').innerText = errorData.error || 'Failed to submit score.';
+          }
+      });
+
+      // Function to delete a score
+      async function deleteScore(scoreId) {
+          const token = localStorage.getItem('token'); // Get the token from local storage
+
+          if (!token) {
+              alert('You must be logged in to delete a score.');
+              return;
+          }
+
+          const response = await fetch(`http://localhost:3000/delete-score/${scoreId}`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}` // Send token for authentication
+              },
+              body: JSON.stringify({ user_id: JSON.parse(atob(token.split('.')[1])).id }) // Include user ID in request body
+          });
+
+          if (response.ok) {
+              alert('Score deleted successfully!');
+              fetchLeaderboard(); // Refresh leaderboard after deletion
+          } else {
+              const errorData = await response.json();
+              alert(errorData.error || 'Failed to delete score.');
+          }
+      }
+
+      fetchLeaderboard(); // Fetch leaderboard data when the page loads
+    </script>
+
+</body>
+</html>
+

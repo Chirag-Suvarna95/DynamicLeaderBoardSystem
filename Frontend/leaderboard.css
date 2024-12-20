@@ -1,0 +1,34 @@
+body { 
+    font-family:Ariel,sans-serif; 
+    background-color:#f9f9f9; 
+ }
+ 
+ h1 { 
+    text-align:center; 
+ }
+ 
+ table { 
+    width:auto; 
+    margin:auto; 
+    border-collapse:border-collapse; /* Collapse borders */
+ }
+ 
+ th,
+ td { 
+    border :1px solid #ddd; /* Border for table cells */
+    padding :12px; /* Cell padding */
+ }
+ 
+ th { 
+    background-color:#4CAF50; /* Header color */
+    color:white; /* Header text color */
+ }
+ 
+ tr:nth-child(even){ 
+    background-color:#f2f2f2; /* Zebra striping for rows */
+ }
+ 
+ tr:hover{ 
+    background-color:#d1e7dd; /* Highlight row on hover */
+ }
+ 

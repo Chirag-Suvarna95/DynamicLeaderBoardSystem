@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Leaderboard - Games</title>
+    <link rel="stylesheet" href="games.css"> <!-- Link to games.css -->
+</head>
+<body>
+    <h1>Select a Game</h1>
+    <div id="games-list"></div>
+
+    <script>
+      async function fetchGames() {
+          const response = await fetch('http://localhost:3000/games');
+          if (response.ok) {
+              const games = await response.json();
+              const gamesListDiv = document.getElementById('games-list');
+              games.forEach(game => {
+                  const button = document.createElement('button');
+                  button.innerText = game.name;
+                  button.onclick = () => window.location.href=`leaderboard.html?gameId=${game.id}`; // Redirect to leaderboard page
+                  gamesListDiv.appendChild(button);
+              });
+          } else {
+              alert('Failed to load games.');
+          }
+      }
+
+      fetchGames();
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+}
+
+#games-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center buttons */
+}
+
+button {
+    margin: 10px; /* Space between buttons */
+    padding: 15px 30px; /* Button padding */
+    font-size: 16px; /* Font size */
+    background-color: #4CAF50; /* Primary color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}
