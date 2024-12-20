@@ -123,35 +123,63 @@ app.get('/leaderboard/:gameId', (req, res) => {
     });
 });
 
-// Route to delete a score
-app.delete('/delete-score/:id', (req, res) => {
-   const scoreId = req.params.id;
-   const userId = req.body.user_id; // Get user ID from request body
+// Route to update a score
+app.put('/update-score/:id', (req,res)=>{
+   const scoreId=req.params.id;
+   const {user_id,new_score}=req.body; 
 
-   // Check if the score belongs to the user
-   const checkScoreQuery = 'SELECT user_id FROM Scores WHERE id = ?';
-   db.query(checkScoreQuery, [scoreId], (error, results) => {
-       if (error || results.length === 0) {
-           return res.status(404).json({ error: 'Score not found.' });
+   // Check if the score belongs to the user 
+   const checkScoreQuery='SELECT user_id FROM Scores WHERE id=?';
+   db.query(checkScoreQuery,[scoreId],(error,result)=>{
+       if(error || result.length===0){
+           return res.status(404).json({error:'Score not found.'});
        }
 
-       const scoreOwnerId = results[0].user_id;
-       if (scoreOwnerId !== userId) { 
-           return res.status(403).json({ error: 'You do not have permission to delete this score.' });
+       let ownerID=result[0].user_id;
+       if(ownerID!==user_id){ 
+           return res.status(403).json({error:'You do not have permission to update this score.'});
+       }
+
+       // Proceed to update the score
+       const queryUpdateScore='UPDATE Scores SET score=? WHERE id=?';
+       db.query(queryUpdateScore,[new_score ,scoreId],(error,result)=>{
+           if(error){
+               return res.status(500).json({error:'Failed to update score.'});
+           }
+           res.status(200).json({message:'Score updated successfully.'});
+       })
+   });
+});
+
+// Route to delete a score 
+app.delete('/delete-score/:id',(req,res)=>{
+   const scoreID=req.params.id;
+   const userID=req.body.user_id; 
+
+   // Check if the score belongs to the user 
+   const checkScoreQuery='SELECT user_id FROM Scores WHERE id=?';
+   db.query(checkScoreQuery,[scoreID],(error,result)=>{
+       if(error || result.length===0){
+           return res.status(404).json({error:'Score not found.'});
+       }
+
+       let ownerID=result[0].user_id;
+       if(ownerID!==userID){ 
+           return res.status(403).json({error:'You do not have permission to delete this score.'});
        }
 
        // Proceed to delete the score
-       const query = 'DELETE FROM Scores WHERE id = ?';
-       db.query(query, [scoreId], (error, results) => {
-           if (error) {
-               return res.status(500).json({ error: 'Failed to delete score.' });
+       const query='DELETE FROM Scores WHERE id=?';
+       db.query(query,[scoreID],(error,result)=>{
+           if(error){
+               return res.status(500).json({error:'Failed to delete score.'});
            }
-           res.status(200).json({ message: 'Score deleted successfully.' });
+           res.status(200).json({message:'Score deleted successfully.'});
        });
    });
 });
 
-// Start the server
-app.listen(3000, () => {
-   console.log('Server is running on http://localhost:3000');
+// Start the server 
+app.listen(3000 , () =>{
+   console.log ('Server is running on http://localhost :3000');
 });

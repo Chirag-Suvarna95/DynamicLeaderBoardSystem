@@ -26,7 +26,7 @@
                 <th>Player</th>
                 <th>Score</th>
                 <th>Date</th>
-                <th>Action</th> <!-- Added Action Header for Delete -->
+                <th>Action</th> <!-- Added Action Header for Update/Delete -->
             </tr>
         </thead>
         <tbody></tbody>
@@ -59,12 +59,21 @@
                       <td>${entry.score}</td>
                       <td>${new Date(entry.date_achieved).toLocaleString()}</td>`;
                   
-                  // Add a delete button only for scores belonging to the logged-in user
+                  // Add an input field and buttons for updating and deleting scores
                   if (userId === entry.user_id) { // Check if this score belongs to the logged-in user
+                      const actionCell = document.createElement('td');
+
+                      // Update button
+                      const updateButton = document.createElement('button');
+                      updateButton.innerText = 'Update';
+                      updateButton.onclick = () => showUpdateInput(entry.id, entry.score); // Show input field for updating
+
+                      // Delete button
                       const deleteButton = document.createElement('button');
                       deleteButton.innerText = 'Delete';
                       deleteButton.onclick = () => deleteScore(entry.id); // Call delete function with score ID
-                      const actionCell = document.createElement('td');
+
+                      actionCell.appendChild(updateButton);
                       actionCell.appendChild(deleteButton);
                       row.appendChild(actionCell);
                   } else {
@@ -75,6 +84,43 @@
               });
           } else {
               alert('Failed to load leaderboard.');
+          }
+      }
+
+      // Function to show input for updating a score
+      function showUpdateInput(scoreId, currentScore) {
+          const newScoreInput = prompt("Enter new score:", currentScore);
+          if (newScoreInput !== null && !isNaN(newScoreInput)) {
+              updateScore(scoreId, newScoreInput);
+          } else {
+              alert("Please enter a valid number.");
+          }
+      }
+
+      // Function to update a score
+      async function updateScore(scoreId, newScore) {
+          const token = localStorage.getItem('token'); // Get the token from local storage
+
+          if (!token) {
+              alert('You must be logged in to update a score.');
+              return;
+          }
+
+          const response = await fetch(`http://localhost:3000/update-score/${scoreId}`, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}` // Send token for authentication
+              },
+              body: JSON.stringify({ user_id: JSON.parse(atob(token.split('.')[1])).id, new_score: newScore }) // Include user ID and new score in request body
+          });
+
+          if (response.ok) {
+              alert('Score updated successfully!');
+              fetchLeaderboard(); // Refresh leaderboard after updating
+          } else {
+              const errorData = await response.json();
+              alert(errorData.error || 'Failed to update score.');
           }
       }
 
