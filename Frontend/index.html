@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Leaderboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Gaming Leaderboard</h1>
+    </header>
+
+    <!-- Login/Register Section -->
+    <section id="auth-section">
+        <h2>Login or Register</h2>
+        <form id="auth-form">
+            <input type="text" id="username" placeholder="Enter Username" required>
+            <input type="email" id="email" placeholder="Enter Email" required>
+            <button type="button" id="authBtn">Login/Register</button>
+        </form>
+    </section>
+
+    <!-- Input Scores Section -->
+    <section id="score-section" style="display: none;">
+        <h2>Submit Your Score</h2>
+        <form id="score-form">
+            <select id="game-select" required>
+                <option value="">Select Game</option>
+                <option value="1">Game 1</option>
+                <option value="2">Game 2</option>
+            </select>
+            <input type="number" id="score-input" placeholder="Enter Score" required>
+            <button type="button" id="submitScoreBtn">Submit Score</button>
+        </form>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback-section" style="display: none;">
+        <p id="feedback-message"></p>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard-section">
+        <h2>Leaderboard</h2>
+        <table id="leaderboard">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Game</th>
+                    <th>Player</th>
+                    <th>Score</th>
+                    <th>Date</th>
+                    <th>Action</th> <!-- Added Action Header for Delete -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic Rows Will Appear Here -->
+            </tbody>
+        </table>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

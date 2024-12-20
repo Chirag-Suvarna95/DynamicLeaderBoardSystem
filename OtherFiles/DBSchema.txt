@@ -1,0 +1,32 @@
+-- Step 1: Create the database
+CREATE DATABASE GamingLeaderboard;
+
+-- Step 2: Use the database
+USE GamingLeaderboard;
+
+-- Step 3: Create the Users table
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Step 4: Create the Games table
+CREATE TABLE Games (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+-- Step 5: Create the Scores table
+CREATE TABLE Scores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    game_id INT NOT NULL,
+    score INT NOT NULL,
+    date_achieved DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (game_id) REFERENCES Games(id)
+);
+
+-- Step 6: Insert sample data into Games table
+INSERT INTO Games (name) VALUES ('Game 1'), ('Game 2');
