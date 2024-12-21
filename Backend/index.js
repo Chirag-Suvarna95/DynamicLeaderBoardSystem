@@ -104,6 +104,8 @@ app.post('/submit-score', (req, res) => {
     });
 });
 
+
+
 // Route to get the leaderboard for a specific game
 app.get('/leaderboard/:gameId', (req, res) => {
     const gameId = req.params.gameId;
@@ -178,6 +180,31 @@ app.delete('/delete-score/:id',(req,res)=>{
        });
    });
 });
+// Endpoint to get top 10 combined scores from Top10 table
+app.get('/top10', (req, res) => {
+    const query = `
+        SELECT u.username, t.total_score, t.date_updated 
+        FROM Top10 t 
+        JOIN Users u ON t.user_id = u.id 
+        ORDER BY t.total_score DESC 
+        LIMIT 10`;
+
+    db.query(query, (error, results) => {
+        if (error) {
+            console.error('Error executing query:', error);
+            return res.status(500).json({ error: 'Failed to retrieve top scores.' });
+        }
+
+        // Format date for output
+        results.forEach(result => {
+            result.date_updated = new Date(result.date_updated).toLocaleString();
+        });
+
+        // Send formatted response back
+        res.json(results);
+    });
+});
+
 
 // Start the server 
 app.listen(3000 , () =>{

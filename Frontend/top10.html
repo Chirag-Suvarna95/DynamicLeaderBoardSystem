@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Combined Scores</title>
+    <link rel="stylesheet" href="CSS/styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <h1>Top 10 Combined Scores</h1>
+    <table id="leaderboard">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Username</th>
+                <th>Total Score</th>
+                <th>Date Updated</th>
+            
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function fetchTopScores() {
+            try {
+                const response = await fetch('http://localhost:3000/top10'); // Fetch top 10 scores from your API
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const scores = await response.json();
+                displayTopScores(scores);
+            } catch (error) {
+                console.error('Error fetching top scores:', error);
+            }
+        }
+
+        function displayTopScores(scores) {
+            const leaderboardTableBody = document.querySelector('#leaderboard tbody');
+            leaderboardTableBody.innerHTML = ''; // Clear existing content
+
+            scores.forEach((score, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${score.username}</td>
+                    <td>${score.total_score}</td>
+                    <td>${score.date_updated}</td>
+                `;
+                leaderboardTableBody.appendChild(row);
+            });
+        }
+
+
+        
+
+        fetchTopScores(); // Fetch and display top scores on page load
+    </script>
+</body>
+</html>
