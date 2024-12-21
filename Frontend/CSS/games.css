@@ -1,56 +1,45 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px; /* Add padding around the body */
+    text-align: center; /* Center align text */
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 30px; /* Space below the heading */
+    margin-bottom: 20px; /* Space below the heading */
+    background-color: #4CAF50;
+    padding: 2%
 }
 
 #games-list {
-    display: flex; /* Use flexbox for layout */
-    flex-wrap: wrap; /* Allow wrapping of buttons */
-    justify-content: center; /* Center align buttons */
-    height: calc(100vh - 100px); /* Set height to cover almost half the page */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center buttons in container */
 }
 
 button {
     background-color: #4CAF50; /* Button color */
     color: white; /* Button text color */
     border: none; /* No border */
-    border-radius: 8px; /* Rounded corners */
-    padding: 2rem 1.5rem; /* Increased padding for bigger buttons */
-    margin: 10px; /* Space between buttons */
-    font-size: 1.5rem; /* Increased font size */
+    border-radius: 50%; /* Fully rounded corners for circular shape */
+    padding: 4rem; /* Increased padding for larger buttons */
+    margin: 20px; /* Space between buttons */
+    font-size: 2.5rem; /* Increased font size for better visibility */
     cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-    flex: 1 1 calc(30% - 20px); /* Allow buttons to grow and shrink, with a base width of ~30% */
-    min-height: calc(50vh - 40px); /* Minimum height to cover almost half the page */
+    transition: background-color 0.8s ease; /* Smooth transition for hover effect */
+    
+
+    aspect-ratio: 1 / 1; /* Maintain a square aspect ratio for circular shape */
+    flex: 0 1 calc(30% - 20px); /* Allow buttons to shrink and grow, base width ~30% */
+    max-width: 240px; /* Set a maximum width for very large buttons */
 }
 
-/* Hover effect */
+/* Animation on hover */
 button:hover {
+    transform: scale(1.1); /* Slightly increase size on hover */
     background-color: #45a049; /* Darker shade on hover */
+    
 }
 
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-    button {
-        flex: 1 1 calc(45% - 20px); /* Adjust width for medium screens */
-        font-size: 1.2rem; /* Slightly smaller font size on medium screens */
-        padding: 1.5rem; /* Adjust padding on medium screens */
-        min-height: calc(40vh - 40px); /* Adjust minimum height on medium screens */
-    }
-}
-
-@media (max-width: 480px) {
-    button {
-        flex: 1 1 calc(100% - 20px); /* Full width on small screens */
-        font-size: 1rem; /* Smaller font size on small screens */
-        padding: 1rem; /* Adjust padding on small screens */
-        min-height: calc(30vh - 20px); /* Adjust minimum height on small screens */
-    }
+/* Optional click effect (ripple) */
+button:active {
+    transform: scale(0.95); /* Slightly decrease size on click */
 }

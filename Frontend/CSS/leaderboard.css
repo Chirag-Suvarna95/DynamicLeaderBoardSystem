@@ -5,6 +5,13 @@ body {
  
  h1 { 
     text-align:center; 
+    background-color: #4CAF50;
+    padding: 2%
+ }
+
+ #score-submission{
+   text-align:center; 
+   margin:2%;
  }
  
  table { 
