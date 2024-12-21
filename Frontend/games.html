@@ -19,8 +19,19 @@
               const gamesListDiv = document.getElementById('games-list');
               games.forEach(game => {
                   const button = document.createElement('button');
-                  button.innerText = game.name;
-                  button.onclick = () => window.location.href=`leaderboard.html?gameId=${game.id}`; // Redirect to leaderboard page
+                  
+                  // Create an image element
+                  const img = document.createElement('img');
+                  img.src = `../OtherFiles/Images/${game.name}.jpg`; // Set the image source based on game name
+                  img.alt = `${game.name} logo`; // Alt text for accessibility
+
+                  // Append image to button
+                  button.appendChild(img);
+                  
+                  // Set up click event to redirect to leaderboard page
+                  button.onclick = () => window.location.href=`leaderboard.html?gameId=${game.id}`; 
+                  
+                  // Append button to the games list
                   gamesListDiv.appendChild(button);
               });
           } else {

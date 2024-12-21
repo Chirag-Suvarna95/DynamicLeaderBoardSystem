@@ -1,3 +1,5 @@
+/* games.css */
+
 body {
     font-family: Arial, sans-serif;
     text-align: center; /* Center align text */
@@ -6,7 +8,7 @@ body {
 h1 {
     margin-bottom: 20px; /* Space below the heading */
     background-color: #4CAF50;
-    padding: 2%
+    padding: 2%; /* Padding around heading */
 }
 
 #games-list {
@@ -16,27 +18,32 @@ h1 {
 }
 
 button {
-    background-color: #4CAF50; /* Button color */
+    position: relative; /* Position relative for absolute positioning of the image */
+    background-color: transparent; /* Transparent background to show image */
     color: white; /* Button text color */
     border: none; /* No border */
     border-radius: 50%; /* Fully rounded corners for circular shape */
-    padding: 4rem; /* Increased padding for larger buttons */
+    padding: 0; /* No padding since we are using an image */
     margin: 20px; /* Space between buttons */
-    font-size: 2.5rem; /* Increased font size for better visibility */
     cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.8s ease; /* Smooth transition for hover effect */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
     
-
     aspect-ratio: 1 / 1; /* Maintain a square aspect ratio for circular shape */
     flex: 0 1 calc(30% - 20px); /* Allow buttons to shrink and grow, base width ~30% */
     max-width: 240px; /* Set a maximum width for very large buttons */
 }
 
+/* Styles for the images inside the buttons */
+button img {
+    width: 100%; /* Make image cover the button */
+    height: 100%; /* Make image cover the button */
+    border-radius: 50%; /* Ensure image is circular as well */
+    object-fit: cover; /* Cover the entire button area while maintaining aspect ratio */
+}
+
 /* Animation on hover */
 button:hover {
     transform: scale(1.1); /* Slightly increase size on hover */
-    background-color: #45a049; /* Darker shade on hover */
-    
 }
 
 /* Optional click effect (ripple) */
