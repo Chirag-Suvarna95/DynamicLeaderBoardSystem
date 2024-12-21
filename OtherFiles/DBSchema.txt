@@ -30,3 +30,72 @@ CREATE TABLE Scores (
 
 -- Step 6: Insert sample data into Games table
 INSERT INTO Games (name) VALUES ('Game 1'), ('Game 2');
+
+
+DELIMITER //
+
+CREATE TRIGGER after_scores_change
+AFTER INSERT ON Scores
+FOR EACH ROW
+BEGIN
+    DECLARE total_score INT;
+
+    -- Calculate the new total score for the user
+    SELECT SUM(score) INTO total_score 
+    FROM Scores 
+    WHERE user_id = NEW.user_id;
+
+    -- Update or insert into Top10 table
+    INSERT INTO Top10 (user_id, total_score, date_updated)
+    VALUES (NEW.user_id, total_score, NOW())
+    ON DUPLICATE KEY UPDATE 
+        total_score = total_score,  -- This line should be replaced with an actual update if needed.
+        date_updated = NOW();
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER after_scores_update
+AFTER UPDATE ON Scores
+FOR EACH ROW
+BEGIN
+    DECLARE total_score INT;
+
+    -- Calculate the new total score for the user
+    SELECT SUM(score) INTO total_score 
+    FROM Scores 
+    WHERE user_id = NEW.user_id;
+
+    -- Update Top10 table with new total score
+    UPDATE Top10 
+    SET total_score = total_score, date_updated = NOW()
+    WHERE user_id = NEW.user_id;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER after_scores_delete
+AFTER DELETE ON Scores
+FOR EACH ROW
+BEGIN
+    DECLARE total_score INT;
+
+    -- Calculate the new total score for the user after deletion
+    SELECT SUM(score) INTO total_score 
+    FROM Scores 
+    WHERE user_id = OLD.user_id;
+
+    IF (total_score IS NULL OR total_score = 0) THEN
+        DELETE FROM Top10 WHERE user_id = OLD.user_id; -- Remove from Top10 if no scores left
+    ELSE
+        UPDATE Top10 
+        SET total_score = total_score, date_updated = NOW()
+        WHERE user_id = OLD.user_id;
+    END IF;
+END //
+
+DELIMITER ;

@@ -1,0 +1,51 @@
+/* General body styles */
+body { 
+    font-family: Arial, sans-serif; /* Use Arial font */
+    background-color: #f9f9f9; /* Light gray background */
+}
+
+/* Heading styles */
+h1 { 
+    text-align: center; /* Center align the heading */
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* White text color */
+    padding: 20px; /* Padding around the heading */
+    margin: 0; /* Remove default margin */
+}
+
+/* Table styles */
+table { 
+    width: 80%; /* Set table width to 80% of the container */
+    margin: 20px auto; /* Center table with margin above and below */
+    border-collapse: collapse; /* Collapse borders for a cleaner look */
+}
+
+/* Table header and cell styles */
+th, td { 
+    border: 1px solid #ddd; /* Border for table cells */
+    padding: 12px; /* Cell padding */
+    text-align: center; /* Center align text in cells */
+}
+
+/* Header styles */
+th { 
+    background-color: #4CAF50; /* Header background color */
+    color: white; /* Header text color */
+}
+
+/* Zebra striping for table rows */
+tr:nth-child(even) { 
+    background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+/* Row hover effect */
+tr:hover { 
+    background-color: #d1e7dd; /* Light green highlight on hover */
+}
+
+/* Additional styles for responsiveness (optional) */
+@media (max-width: 768px) {
+    table {
+        width: 100%; /* Full width on smaller screens */
+    }
+}

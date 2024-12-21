@@ -1,4 +1,4 @@
-/* games.css */
+/* Existing styles remain unchanged */
 
 body {
     font-family: Arial, sans-serif;
@@ -17,6 +17,7 @@ h1 {
     justify-content: center; /* Center buttons in container */
 }
 
+/* Styles for game buttons */
 button {
     position: relative; /* Position relative for absolute positioning of the image */
     background-color: transparent; /* Transparent background to show image */
@@ -33,7 +34,7 @@ button {
     max-width: 240px; /* Set a maximum width for very large buttons */
 }
 
-/* Styles for the images inside the buttons */
+/* Styles for images inside game buttons */
 button img {
     width: 100%; /* Make image cover the button */
     height: 100%; /* Make image cover the button */
@@ -41,12 +42,39 @@ button img {
     object-fit: cover; /* Cover the entire button area while maintaining aspect ratio */
 }
 
-/* Animation on hover */
+/* Animation on hover for game buttons */
 button:hover {
     transform: scale(1.1); /* Slightly increase size on hover */
 }
 
-/* Optional click effect (ripple) */
+/* Optional click effect (ripple) for game buttons */
 button:active {
+    transform: scale(0.95); /* Slightly decrease size on click */
+}
+
+/* Styles for Top 10 button container */
+#top10-button-container {
+    margin-top: 30px; /* Space above the Top 10 button */
+}
+
+/* Styles specifically for Top 10 button */
+#top10-button {
+    background-color: #007BFF; /* Blue background color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 50%; /* Slightly rounded corners */
+    padding: 15px 25px; /* Padding around text */
+    font-size: 18px; /* Font size for button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect specifically for Top 10 button */
+#top10-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Active effect specifically for Top 10 button */
+#top10-button:active {
     transform: scale(0.95); /* Slightly decrease size on click */
 }
