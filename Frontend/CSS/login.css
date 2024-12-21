@@ -1,6 +1,6 @@
 body {
    font-family: Arial, sans-serif;
-   background-image: url('../../OtherFiles/Images/kratos.jpg');
+   background-image: url('../../OtherFiles/Images/login.jpg');
    background-size: cover; /* Changed to cover for full body background */
    background-repeat: no-repeat; /* Prevents body background from repeating */
    height: 100vh;

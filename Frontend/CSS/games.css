@@ -3,6 +3,10 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center; /* Center align text */
+    background-image: url('../../OtherFiles/Images/games.jpg');
+    background-size: cover; /* Changed to cover for full body background */
+    background-repeat: no-repeat; /* Prevents body background from repeating */
+    height: 100vh;
 }
 
 h1 {
