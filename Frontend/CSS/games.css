@@ -1,5 +1,22 @@
-/* Existing styles remain unchanged */
 
+
+
+
+
+
+#profile-button {
+    background-color: white; /* Button background color */
+    color: #007bff; /* Text color */
+    border: none; /* No border */
+    border-radius: 50%; /* Rounded corners */
+    padding: 10px 15px; /* Padding around text */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+#profile-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: white; /* Change text color on hover */
+}
 body {
     font-family: Arial, sans-serif;
     text-align: center; /* Center align text */
@@ -13,6 +30,7 @@ h1 {
     margin-bottom: 20px; /* Space below the heading */
     background-color: #4CAF50;
     padding: 2%; /* Padding around heading */
+   
 }
 
 #games-list {

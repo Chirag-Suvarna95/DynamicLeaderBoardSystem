@@ -10,19 +10,19 @@ app.use(cors());
 
 // Database connection
 const db = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'ATXr10@', // Replace with your MySQL password
-  database: 'GamingLeaderboard'
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'ATXr10@', // Replace with your MySQL password
+    database: 'GamingLeaderboard'
 });
 
 // Connect to the database
 db.connect((err) => {
-  if (err) {
-      console.error('Database connection failed:', err);
-      return;
-  }
-  console.log('Connected to the database.');
+    if (err) {
+        console.error('Database connection failed:', err);
+        return;
+    }
+    console.log('Connected to the database.');
 });
 
 // Secret key for JWT
@@ -32,7 +32,6 @@ const JWT_SECRET = 'your_jwt_secret'; // Change this to a strong secret
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
-    // Check if user already exists
     const checkUserQuery = 'SELECT * FROM Users WHERE email = ?';
     db.query(checkUserQuery, [email], async (error, results) => {
         if (error) {
@@ -42,9 +41,7 @@ app.post('/register', async (req, res) => {
             return res.status(400).json({ error: 'User already exists.' });
         }
 
-        // Hash the password before storing it
         const hashedPassword = await bcrypt.hash(password, 10);
-        
         const query = 'INSERT INTO Users (username, email, password) VALUES (?, ?, ?)';
         
         db.query(query, [username, email, hashedPassword], (error, results) => {
@@ -74,7 +71,7 @@ app.post('/login', async (req, res) => {
         }
 
         const token = jwt.sign({ id: user.id }, JWT_SECRET); // Create token
-        res.json({ token });
+        res.json({ token, userId: user.id }); // Return user ID along with token
     });
 });
 
@@ -103,8 +100,6 @@ app.post('/submit-score', (req, res) => {
         res.status(201).json({ scoreId: results.insertId });
     });
 });
-
-
 
 // Route to get the leaderboard for a specific game
 app.get('/leaderboard/:gameId', (req, res) => {
@@ -180,6 +175,7 @@ app.delete('/delete-score/:id',(req,res)=>{
        });
    });
 });
+
 // Endpoint to get top 10 combined scores from Top10 table
 app.get('/top10', (req, res) => {
     const query = `
@@ -205,6 +201,45 @@ app.get('/top10', (req, res) => {
     });
 });
 
+// Route to get user profile
+app.get('/profile/:userId', (req, res) => {
+    const userId = req.params.userId;
+
+    const query = `
+        SELECT u.username, up.bio, up.location, up.date_of_birth, up.website, up.steamID, up.EpicID 
+        FROM UserProfiles up 
+        JOIN Users u ON up.user_id = u.id 
+        WHERE up.user_id = ?`;
+    
+    db.query(query, [userId], (error, results) => {
+        if (error || results.length === 0) {
+            return res.status(404).json({ error: 'User profile not found.' });
+        }
+        
+        // Return the profile data including username
+        res.json(results[0]);
+    });
+});
+
+// Route to update user profile
+app.put('/profile/:userId', (req, res) => {
+    const userId = req.params.userId;
+    const { bio, location, date_of_birth, website, steamID, EpicID } = req.body;
+
+    const query = `
+        UPDATE UserProfiles 
+        SET bio = ?, location = ?, date_of_birth = ?, website = ?, steamID = ?, EpicID = ?
+        WHERE user_id = ?`;
+    
+    db.query(query, [bio, location, date_of_birth, website, steamID, EpicID, userId], (error, results) => {
+        if (error) {
+            return res.status(500).json({ error: 'Failed to update profile.' });
+        }
+        
+        // Return success message after updating profile
+        res.status(200).json({ message: 'Profile updated successfully.' });
+    });
+});
 
 // Start the server 
 app.listen(3000 , () =>{

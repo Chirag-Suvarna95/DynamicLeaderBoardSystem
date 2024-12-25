@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="icon" href="../OtherFiles/Images/favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="CSS/profile.css"> <!-- Link to profile.css -->
+</head>
+<body>
+    <div class="profile-container">
+         <h1>User Profile</h1>
+        
+         <div class="profile-info">
+             <label for="username">Username:</label>
+             <p id="username">Loading...</p>
+         </div>
+
+         <div class="profile-info">
+             <label for="bio">Bio:</label>
+             <p id="bio">Loading...</p>
+         </div>
+
+         <div class="profile-info">
+             <label for="location">Location:</label>
+             <p id="location">Loading...</p>
+         </div>
+
+         <div class="profile-info">
+             <label for="dob">Date of Birth:</label>
+             <p id="dob">Loading...</p>
+         </div>
+
+         <div class="profile-info">
+             <label for="website">Website:</label>
+             <p id="website">Loading...</p>
+         </div>
+
+         <div class="profile-info">
+             <label for="steamID">Steam ID:</label>
+             <p id="steamID">Loading...</p>
+         </div>
+
+         <div class="profile-info">
+             <label for="epicID">Epic ID:</label>
+             <p id="epicID">Loading...</p>
+         </div>
+
+         <!-- Button to edit profile -->
+         <button id="edit-button" onclick="redirectToEditProfile()">Edit Profile</button>
+     </div>
+
+     <script>
+         async function fetchUserProfile() {
+             const urlParams = new URLSearchParams(window.location.search);
+             const userId = urlParams.get('id'); // Get user ID from URL
+
+             console.log('User ID:', userId); // Debug log
+
+             if (!userId) {
+                 alert('No user ID provided! Redirecting to home page.');
+                 window.location.href = 'index.html'; // Redirect or handle as necessary
+                 return;
+             }
+
+             const response = await fetch(`http://localhost:3000/profile/${userId}`, {
+                 headers: {
+                     'Authorization': `Bearer ${localStorage.getItem('token')}` // Include JWT token for authentication if needed
+                 }
+             });
+
+             if (response.ok) {
+                 const userProfile = await response.json();
+                 
+                 // Update the profile fields with user data
+                 document.getElementById('username').innerText = userProfile.username || 'Not provided';
+                 document.getElementById('bio').innerText = userProfile.bio || 'Not provided';
+                 document.getElementById('location').innerText = userProfile.location || 'Not provided';
+                 document.getElementById('dob').innerText = userProfile.date_of_birth || 'Not provided';
+                 document.getElementById('website').innerText = userProfile.website || 'Not provided';
+                 document.getElementById('steamID').innerText = userProfile.steamID || 'Not provided';
+                 document.getElementById('epicID').innerText = userProfile.EpicID || 'Not provided';
+             } else {
+                 console.error('Failed to fetch user profile:', response.statusText);
+             }
+         }
+
+         function redirectToEditProfile() {
+             const urlParams = new URLSearchParams(window.location.search);
+             const userId = urlParams.get('id');
+             window.location.href = `edit-profile.html?id=${userId}`; // Redirect to edit profile page
+         }
+
+         // Fetch user profile when the page loads
+         fetchUserProfile();
+     </script>
+</body>
+</html>

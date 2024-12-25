@@ -6,12 +6,13 @@
     <title>Gaming Leaderboard - Games</title>
     <link rel="icon" href="../OtherFiles/Images/favicon.jpg" type="image/x-icon">
     <link rel="stylesheet" href="CSS/games.css"> <!-- Link to games.css -->
-   
 </head>
-
 <body>
-    <h1>Select a Game</h1>
-    
+    <div class="header">
+        <h1>Select a Game</h1>
+        <button id="profile-button">Go to Profile</button> <!-- Profile button inside header -->
+    </div>
+
     <div id="games-list"></div>
 
     <!-- Button for Top 10 Page -->
@@ -52,6 +53,21 @@
           window.location.href = 'top10.html'; // Redirect to top10.html
       };
 
+      // Function to redirect to profile page
+      function goToProfile() {
+          const userId = localStorage.getItem('userId'); // Retrieve user ID from local storage
+          if (userId) {
+              window.location.href = `profile.html?id=${userId}`; // Redirect with user ID
+          } else {
+              alert('User ID not found! Please log in again.');
+              window.location.href = 'login.html'; // Redirect to login if no user ID
+          }
+      }
+
+      // Attach goToProfile function to profile button click event
+      document.getElementById('profile-button').onclick = goToProfile;
+
+      // Fetch games when the page loads
       fetchGames();
     </script>
 </body>
