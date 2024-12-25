@@ -99,3 +99,18 @@ BEGIN
 END //
 
 DELIMITER ;
+
+
+mysql> desc userprofiles
+    -> ;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| user_id       | int          | NO   | PRI | NULL    |       |
+| bio           | text         | YES  |     | NULL    |       |
+| location      | varchar(100) | YES  |     | NULL    |       |
+| date_of_birth | date         | YES  |     | NULL    |       |
+| website       | varchar(255) | YES  |     | NULL    |       |
+| steamID       | varchar(50)  | YES  |     | NULL    |       |
+| EpicID        | varchar(50)  | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+

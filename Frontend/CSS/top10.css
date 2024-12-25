@@ -7,7 +7,7 @@ body {
 /* Heading styles */
 h1 { 
     text-align: center; /* Center align the heading */
-    background-color: #4CAF50; /* Green background color */
+    background-color: #e25555; /* Green background color */
     color: white; /* White text color */
     padding: 20px; /* Padding around the heading */
     margin: 0; /* Remove default margin */
@@ -29,7 +29,7 @@ th, td {
 
 /* Header styles */
 th { 
-    background-color: #4CAF50; /* Header background color */
+    background-color: #e25555; /* Header background color */
     color: white; /* Header text color */
 }
 

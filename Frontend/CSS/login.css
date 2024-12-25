@@ -9,7 +9,7 @@ body {
 h1 {
    text-align: center;
    color:aliceblue;
-   background-color: #4CAF50;
+   background-color: #e25555;
    padding: 2%
 }
 
@@ -33,14 +33,14 @@ button {
 }
 
 button { 
-   background-color: #4CAF50; /* Primary color */
+   background-color: #e25555; /* Primary color */
    color: white;
    border-radius: 5px;
    cursor:pointer; 
 }
 
 button:hover { 
-   background-color:#45a049; /* Darker shade on hover */
+   background-color:#e25555; /* Darker shade on hover */
 }
 
 #feedback-message { 

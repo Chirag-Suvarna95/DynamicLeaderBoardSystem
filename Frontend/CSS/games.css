@@ -1,9 +1,3 @@
-
-
-
-
-
-
 #profile-button {
     background-color: white; /* Button background color */
     color: #007bff; /* Text color */
@@ -28,7 +22,7 @@ body {
 
 h1 {
     margin-bottom: 20px; /* Space below the heading */
-    background-color: #4CAF50;
+    background-color: #e25555;
     padding: 2%; /* Padding around heading */
    
 }
