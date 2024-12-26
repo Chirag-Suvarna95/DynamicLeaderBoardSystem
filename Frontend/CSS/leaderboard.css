@@ -1,41 +1,49 @@
 body { 
-    font-family:Ariel,sans-serif; 
-    background-color:#f9f9f9; 
- }
- 
- h1 { 
-    text-align:center; 
-    background-color: #e25555;
-    padding: 2%
- }
+   font-family: Ariel, sans-serif; 
+   background-color: #f9f9f9; 
+   background-image: url('../../OtherFiles/Images/CSGOLBBackground.jpg');
+   background-size: cover; /* Full body background */
+   background-repeat: no-repeat; /* Prevents body background from repeating */
+   height: 100vh;
+}
 
- #score-submission{
-   text-align:center; 
-   margin:2%;
- }
- 
- table { 
-    width:auto; 
-    margin:auto; 
-    border-collapse:border-collapse; /* Collapse borders */
- }
- 
- th,
- td { 
-    border :1px solid #ddd; /* Border for table cells */
-    padding :12px; /* Cell padding */
- }
- 
- th { 
-    background-color:#e25555; /* Header color */
-    color:white; /* Header text color */
- }
- 
- tr:nth-child(even){ 
-    background-color:#f2f2f2; /* Zebra striping for rows */
- }
- 
- tr:hover{ 
-    background-color:#d1e7dd; /* Highlight row on hover */
- }
- 
+h1 { 
+   text-align: center; 
+   background-color: #e25555; /* Solid color */
+   padding: 2%;
+   color: white; /* Ensure readability */
+}
+
+#score-submission {
+   text-align: center; 
+   margin: 2%;
+   color:#fbf0ff;
+}
+
+table { 
+   width: 80%; /* Increase table width */
+   margin: auto; 
+   border-collapse: collapse; /* Collapse borders */
+   font-size: 1.2em; /* Make text slightly larger */
+}
+
+th, td { 
+   border: 2px solid #000; /* Solid black border for better visibility */
+   padding: 16px; /* Increase padding for better spacing */
+}
+
+th { 
+   background-color: #e25555; /* Solid header background color */
+   color: white; /* Header text color */
+}
+
+tr:nth-child(even) { 
+   background-color: #f2f2f2; /* Slightly different row color */
+}
+tr:nth-child(odd) { 
+   background-color: #df9ff9; /* Slightly different row color */
+}
+
+tr:hover { 
+   background-color: #aad2f5; /* Highlight row on hover with a solid color */
+}

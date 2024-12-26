@@ -114,6 +114,15 @@ button:active {
    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
 
 }
+.navbar-title {
+    float: center; /* Aligns title to the left */
+    text-align: ;
+    font-size: 24px; /* Font size for the title */
+    padding: 15px 20px; /* Padding around the title */
+    color: #ffcc00; /* Bright yellow color for title */
+    font-size: 36px; /* Increased font size for the title */
+   
+}
 
 /* Hover Effect Specifically for Top 10 Button */
 #top10-button:hover {

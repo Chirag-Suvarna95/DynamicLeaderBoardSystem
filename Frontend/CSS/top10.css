@@ -2,6 +2,10 @@
 body { 
     font-family: Arial, sans-serif; /* Use Arial font */
     background-color: #f9f9f9; /* Light gray background */
+    background-image: url('../../OtherFiles/Images/CSGOLBBackground.jpg');
+   background-size: cover; /* Full body background */
+   background-repeat: no-repeat; /* Prevents body background from repeating */
+   height: 100vh;
 }
 
 /* Heading styles */
@@ -33,10 +37,26 @@ th {
     color: white; /* Header text color */
 }
 
-/* Zebra striping for table rows */
 tr:nth-child(even) { 
     background-color: #f2f2f2; /* Light gray for even rows */
 }
+tr:nth-child(odd) { 
+    background-color: #df9ff9; /* Light gray for even rows */
+}
+/* Zebra striping for table rows */
+tr:nth-child(1) { 
+    background-color: #D4AF37; /* Gold for the first row */
+    font-weight: bold; /* Optional: make text bold for emphasis */
+}
+tr:nth-child(2) { 
+    background-color: silver; /* Silver for the second row */
+    font-weight: bold; /* Optional: make text bold for emphasis */
+}
+tr:nth-child(3) { 
+    background-color: #cd7f32; /* Bronze for the third row */
+    font-weight: bold; /* Optional: make text bold for emphasis */
+}
+
 
 /* Row hover effect */
 tr:hover { 
