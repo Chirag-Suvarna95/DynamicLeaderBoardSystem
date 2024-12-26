@@ -4,20 +4,20 @@ CREATE DATABASE GamingLeaderboard;
 -- Step 2: Use the database
 USE GamingLeaderboard;
 
--- Step 3: Create the Users table
+
 CREATE TABLE Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE
 );
 
--- Step 4: Create the Games table
+
 CREATE TABLE Games (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
--- Step 5: Create the Scores table
+
 CREATE TABLE Scores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -28,8 +28,27 @@ CREATE TABLE Scores (
     FOREIGN KEY (game_id) REFERENCES Games(id)
 );
 
--- Step 6: Insert sample data into Games table
-INSERT INTO Games (name) VALUES ('Game 1'), ('Game 2');
+CREATE TABLE Top10 (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL UNIQUE,
+    total_score INT NOT NULL,
+    date_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Userprofiles (
+    user_id INT NOT NULL PRIMARY KEY,
+    bio TEXT,
+    location VARCHAR(100),
+    date_of_birth DATE,
+    website VARCHAR(255),
+    steamID VARCHAR(50),
+    EpicID VARCHAR(50),
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+);
+
+----------------------------------------------------------------------------
 
 
 DELIMITER //
@@ -100,17 +119,3 @@ END //
 
 DELIMITER ;
 
-
-mysql> desc userprofiles
-    -> ;
-+---------------+--------------+------+-----+---------+-------+
-| Field         | Type         | Null | Key | Default | Extra |
-+---------------+--------------+------+-----+---------+-------+
-| user_id       | int          | NO   | PRI | NULL    |       |
-| bio           | text         | YES  |     | NULL    |       |
-| location      | varchar(100) | YES  |     | NULL    |       |
-| date_of_birth | date         | YES  |     | NULL    |       |
-| website       | varchar(255) | YES  |     | NULL    |       |
-| steamID       | varchar(50)  | YES  |     | NULL    |       |
-| EpicID        | varchar(50)  | YES  |     | NULL    |       |
-+---------------+--------------+------+-----+---------+-------+

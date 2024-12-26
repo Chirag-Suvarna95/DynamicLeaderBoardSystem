@@ -1,3 +1,34 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center; /* Center align text */
+    background-image: url('../../OtherFiles/Images/games.jpg');
+    background-size: cover; /* Full body background */
+    background-repeat: no-repeat; /* Prevents body background from repeating */
+    height: 100vh;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent dark background */
+    padding: 10px 20px;
+}
+
+.navbar-title {
+    color: white;
+    margin: 0;
+}
+
+.navbar-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Profile Button Styles */
 #profile-button {
     background-color: white; /* Button background color */
     color: #007bff; /* Text color */
@@ -11,29 +42,22 @@
     background-color: #0056b3; /* Darker blue on hover */
     color: white; /* Change text color on hover */
 }
-body {
-    font-family: Arial, sans-serif;
-    text-align: center; /* Center align text */
-    background-image: url('../../OtherFiles/Images/games.jpg');
-    background-size: cover; /* Changed to cover for full body background */
-    background-repeat: no-repeat; /* Prevents body background from repeating */
-    height: 100vh;
-}
 
+/* Heading Styles */
 h1 {
     margin-bottom: 20px; /* Space below the heading */
     background-color: #e25555;
     padding: 2%; /* Padding around heading */
-   
 }
 
+/* Games List Container Styles */
 #games-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; /* Center buttons in container */
 }
 
-/* Styles for game buttons */
+/* Styles for Game Buttons */
 button {
     position: relative; /* Position relative for absolute positioning of the image */
     background-color: transparent; /* Transparent background to show image */
@@ -43,14 +67,15 @@ button {
     padding: 0; /* No padding since we are using an image */
     margin: 20px; /* Space between buttons */
     cursor: pointer; /* Pointer cursor on hover */
-    transition: transform 0.3s ease; /* Smooth transition for hover effect */
     
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+
     aspect-ratio: 1 / 1; /* Maintain a square aspect ratio for circular shape */
     flex: 0 1 calc(30% - 20px); /* Allow buttons to shrink and grow, base width ~30% */
     max-width: 240px; /* Set a maximum width for very large buttons */
 }
 
-/* Styles for images inside game buttons */
+/* Styles for Images Inside Game Buttons */
 button img {
     width: 100%; /* Make image cover the button */
     height: 100%; /* Make image cover the button */
@@ -58,39 +83,46 @@ button img {
     object-fit: cover; /* Cover the entire button area while maintaining aspect ratio */
 }
 
-/* Animation on hover for game buttons */
+/* Animation on Hover for Game Buttons */
 button:hover {
     transform: scale(1.1); /* Slightly increase size on hover */
 }
 
-/* Optional click effect (ripple) for game buttons */
+/* Optional Click Effect (Ripple) for Game Buttons */
 button:active {
     transform: scale(0.95); /* Slightly decrease size on click */
 }
 
-/* Styles for Top 10 button container */
+/* Styles for Top 10 Button Container */
 #top10-button-container {
     margin-top: 30px; /* Space above the Top 10 button */
 }
 
-/* Styles specifically for Top 10 button */
+/* Styles Specifically for Top 10 Button */
 #top10-button {
     background-color: #007BFF; /* Blue background color */
     color: white; /* White text color */
     border: none; /* No border */
     border-radius: 50%; /* Slightly rounded corners */
+    
     padding: 15px 25px; /* Padding around text */
+    
     font-size: 18px; /* Font size for button text */
+    
     cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+
+   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+
 }
 
-/* Hover effect specifically for Top 10 button */
+/* Hover Effect Specifically for Top 10 Button */
 #top10-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+   background-color: #0056b3; /* Darker blue on hover */
+
 }
 
-/* Active effect specifically for Top 10 button */
+/* Active Effect Specifically for Top 10 Button */
 #top10-button:active {
-    transform: scale(0.95); /* Slightly decrease size on click */
+   transform: scale(0.95); /* Slightly decrease size on click */
+
 }
