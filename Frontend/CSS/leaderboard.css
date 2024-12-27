@@ -1,49 +1,124 @@
 body { 
-   font-family: Ariel, sans-serif; 
-   background-color: #f9f9f9; 
-   background-image: url('../../OtherFiles/Images/CSGOLBBackground.jpg');
-   background-size: cover; /* Full body background */
-   background-repeat: no-repeat; /* Prevents body background from repeating */
+   font-family: Arial, sans-serif; 
+   background: linear-gradient(135deg, #1E1E2F, #2C2C40); /* Dark gradient background */
+   color: #E0E0E0; /* Light gray text for contrast */
    height: 100vh;
+   margin: 5%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   overflow-y: auto; /* Allow vertical scrolling */
 }
 
 h1 { 
    text-align: center; 
-   background-color: #e25555; /* Solid color */
-   padding: 2%;
+   background-color: #00BFA5; /* Vibrant teal */
+   padding: 20px; /* Add spacing */
    color: white; /* Ensure readability */
+   border-radius: 10px; /* Smooth edges for the header */
+   margin-bottom: 20px; /* Space below the header */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+   width: 80%; /* Constraint the width for better centering */
 }
 
 #score-submission {
    text-align: center; 
-   margin: 2%;
-   color:#fbf0ff;
+   margin: 20px 0; /* Vertical spacing */
+   color: #E0E0E0; /* Light gray text for consistency */
+   font-size: 1.2em;
+
+   background-color: transparent; /* Remove background */
+   padding: 10px; /* Add padding for spacing */
+}
+
+#score-submission input[type="text"], 
+#score-submission input[type="number"] {
+   width: 80%; /* Constraint input width for consistency */
+   padding: 10px;
+   margin: 10px 0; /* Spacing between inputs */
+   border: 1px solid rgba(255, 255, 255, 0.2); /* Add a subtle border */
+   border-radius: 5px; /* Rounded input corners */
+   background-color: rgba(31, 34, 39, 0.9); /* Slightly darker input background */
+   color: white;
+   font-size: 1em;
+}
+
+#score-submission button {
+   background-color: #00BFA5; /* Vibrant teal */
+   color: white; /* Ensure readability */
+   padding: 10px 20px;
+   border: none;
+   border-radius: 5px;
+   font-size: 1em;
+   cursor: pointer;
+   margin-top: 10px;
+   transition: background-color 0.3s ease-in-out;
+}
+
+#score-submission button:hover {
+   background-color: #00796B; /* Darker teal on hover */
+   transition: background-color 0.3s ease-in-out;
 }
 
 table { 
    width: 80%; /* Increase table width */
-   margin: auto; 
-   border-collapse: collapse; /* Collapse borders */
+   border-collapse: separate; /* Use separate borders for spacing */
    font-size: 1.2em; /* Make text slightly larger */
+   color: #FFFFFF; /* White text for contrast */
+   background-color: #1F2227; /* Base color for the table */
+   border-radius: 10px; /* Rounded corners for the entire table */
+   overflow: hidden; /* Ensure borders are clipped */
+   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Add a shadow for depth */
+   margin-bottom: 40px; /* Space below the table */
 }
 
-th, td { 
-   border: 2px solid #000; /* Solid black border for better visibility */
-   padding: 16px; /* Increase padding for better spacing */
+thead th { 
+   background: linear-gradient(90deg, #00BFA5, #00796B); /* Gradient header */
+   color: #FFFFFF; /* Crisp white text */
+   padding: 24px; /* Add padding for spacing */
+   text-align: center; /* Center text in header */
+   font-weight: bold; /* Emphasize header text */
+   font-size: 1.4em; /* Larger header text */
+   border-radius: 10px 10px 0 0; /* Rounded top corners */
 }
 
-th { 
-   background-color: #e25555; /* Solid header background color */
-   color: white; /* Header text color */
+tbody tr {
+   height: 60px; /* Set a consistent height for rows */
+   border-radius: 10px; /* Round row corners */
+   overflow: hidden; /* Ensure no overlap of corners */
+   background-color: rgba(31, 34, 39, 0.8); /* Semi-transparent background */
+   box-shadow: none; /* Remove shadow for rows */
 }
 
-tr:nth-child(even) { 
-   background-color: #f2f2f2; /* Slightly different row color */
-}
-tr:nth-child(odd) { 
-   background-color: #df9ff9; /* Slightly different row color */
+/* Alternating row colors */
+tbody tr:nth-child(even) { 
+   background-color: rgba(42, 46, 53, 0.8); /* Darker muted color for even rows */
 }
 
-tr:hover { 
-   background-color: #aad2f5; /* Highlight row on hover with a solid color */
+tbody tr:nth-child(odd) { 
+   background-color: rgba(31, 34, 39, 0.8); /* Slightly lighter color for odd rows */
+}
+
+/* Add rounded edges to the first and last cells in each row */
+tbody tr td:first-child {
+   border-radius: 10px 0 0 10px; /* Round left corners */
+}
+
+tbody tr td:last-child {
+   border-radius: 0 10px 10px 0; /* Round right corners */
+}
+
+td { 
+   padding: 20px; /* Space out the content */
+   color: #FFFFFF; /* Crisp white text */
+   text-align: center; /* Center text horizontally */
+   vertical-align: middle; /* Center text vertically */
+   border: none; /* Remove borders between columns */
+}
+
+/* Hover effect for rows */
+tbody tr:hover { 
+   background-color: rgba(66, 165, 245, 0.8); /* Semi-transparent blue highlight */
+   transition: background-color 0.3s ease-in-out; /* Smooth transition */
 }

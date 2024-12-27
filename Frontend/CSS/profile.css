@@ -2,7 +2,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-image: url('../../OtherFiles/Images/gate.jpg');
+    background-size: cover; /* Full body background */
+    background-repeat: no-repeat; /* Prevents body background from repeating */
+    height: 100vh;
 }
 
 .header {
@@ -16,7 +19,7 @@ body {
 
 .profile-container {
     padding: 20px;
-    background: white;
+    background: rgb(243, 151, 151);
     margin: 20px auto;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -35,14 +38,14 @@ body {
     display: block;
     margin: auto;
     padding: 10px 20px;
-    background-color: #007bff; /* Button color */
+    background-color: #842530; /* Button color */
     color: white;
     border: none;
     border-radius: 5px;
 }
 
 #edit-button:hover {
-    background-color: #0056b3; /* Darker shade for hover effect */
+    background-color: #0e1013; /* Darker shade for hover effect */
 }
 
 /* Circle profile link styles */

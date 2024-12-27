@@ -18,10 +18,11 @@ body {
 }
 
 .navbar-title {
-    color: white;
-    margin: 0;
+    color: #ffcc00; /* Bright yellow color for title */
+    font-size: 36px; /* Increased font size for the title */
 }
 
+/* Navbar Menu Styles */
 .navbar-menu {
     list-style-type: none;
     margin: 0;
@@ -30,17 +31,20 @@ body {
 
 /* Profile Button Styles */
 #profile-button {
-    background-color: white; /* Button background color */
-    color: #007bff; /* Text color */
+    background-image: url('../../OtherFiles/Images/favicon.jpg'); /* Background image for the button */
+    background-size: cover; /* Cover the entire button area with the image */
+    background-position: center; /* Center the image in the button */
+    width: 40%; /* Set a smaller width */
+    height: 40%; /* Set a smaller height */
+    color: transparent; /* Hide text color since we're using an image */
     border: none; /* No border */
     border-radius: 50%; /* Rounded corners */
-    padding: 10px 15px; /* Padding around text */
+    padding: 0; 
     cursor: pointer; /* Pointer cursor on hover */
 }
 
 #profile-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    color: white; /* Change text color on hover */
+    background-color: rgba(0, 0, 0, 0.5); /* Optional dark overlay on hover */
 }
 
 /* Heading Styles */
@@ -61,13 +65,13 @@ h1 {
 button {
     position: relative; /* Position relative for absolute positioning of the image */
     background-color: transparent; /* Transparent background to show image */
-    color: white; /* Button text color */
+    color: white; /* Button text color (not used with images) */
     border: none; /* No border */
     border-radius: 50%; /* Fully rounded corners for circular shape */
     padding: 0; /* No padding since we are using an image */
     margin: 20px; /* Space between buttons */
     cursor: pointer; /* Pointer cursor on hover */
-    
+
     transition: transform 0.3s ease; /* Smooth transition for hover effect */
 
     aspect-ratio: 1 / 1; /* Maintain a square aspect ratio for circular shape */
@@ -101,27 +105,22 @@ button:active {
 /* Styles Specifically for Top 10 Button */
 #top10-button {
     background-color: #007BFF; /* Blue background color */
-    color: white; /* White text color */
+    color: white; /* White text color (not used with images) */
     border: none; /* No border */
     border-radius: 50%; /* Slightly rounded corners */
     
-    padding: 15px 25px; /* Padding around text */
-    
-    font-size: 18px; /* Font size for button text */
-    
-    cursor: pointer; /* Pointer cursor on hover */
+    background-image: url('../../OtherFiles/Images/CSGOLBBackground.jpg');
+    background-size: cover; /* Full body background */
+    background-repeat: no-repeat; /* Prevents body background from repeating */
+   
+   padding: 15px 25px; /* Padding around text */
+
+   font-size: 18px; /* Font size for button text */
+
+   cursor: pointer; /* Pointer cursor on hover */
 
    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
 
-}
-.navbar-title {
-    float: center; /* Aligns title to the left */
-    text-align: ;
-    font-size: 24px; /* Font size for the title */
-    padding: 15px 20px; /* Padding around the title */
-    color: #ffcc00; /* Bright yellow color for title */
-    font-size: 36px; /* Increased font size for the title */
-   
 }
 
 /* Hover Effect Specifically for Top 10 Button */

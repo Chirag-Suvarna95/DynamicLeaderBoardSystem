@@ -12,7 +12,7 @@ app.use(cors());
 const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
-    password: 'ATXr10@', // Replace with your MySQL password
+    password: 'ATXr10@', 
     database: 'GamingLeaderboard'
 });
 
@@ -26,7 +26,7 @@ db.connect((err) => {
 });
 
 // Secret key for JWT
-const JWT_SECRET = 'your_jwt_secret'; // Change this to a strong secret
+const JWT_SECRET = 'your_jwt_secret'; 
 
 // User registration
 app.post('/register', async (req, res) => {
