@@ -1,0 +1,85 @@
+1. Insert Operation:
+sql
+Copy code
+INSERT INTO games (id, name)
+VALUES (5, 'Apex Legends');
+
+2. Delete Operation:
+Table Before Deletion:
+id	name
+1	Counter-Strike 2
+2	The Witcher 3 Wild Hunt
+3	Fortnite
+4	Minecraft
+7	Call of Duty Warzone
+
+Delete Operation:
+DELETE FROM games WHERE id = 2;
+Table After Deletion:
+id	name
+1	Counter-Strike 2
+3	Fortnite
+4	Minecraft
+7	Call of Duty Warzone
+3. Update Operation:
+Table Before Update:
+id	name
+1	Counter-Strike 2
+3	Fortnite
+4	Minecraft
+7	Call of Duty Warzone
+Update Operation:
+UPDATE games
+SET name = 'PUBG: Battlegrounds'
+WHERE id = 3;
+Table After Update:
+id	name
+1	Counter-Strike 2
+3	PUBG: Battlegrounds
+4	Minecraft
+7	Call of Duty Warzone
+4. Search Operation:
+SELECT * FROM games WHERE name LIKE '%Craft%';
+This will return:
+
+id	name
+1	Counter-Strike 2
+4	Minecraft
+5. Display Operation:
+SELECT * FROM games;
+This will display the current state of the games table:
+
+id	name
+1	Counter-Strike 2
+3	PUBG: Battlegrounds
+4	Minecraft
+7	Call of Duty Warzone
+
+
+-- Insert Commands
+INSERT INTO Users (username, email, password) VALUES ('johndoe', 'johndoe@example.com', 'password123');
+INSERT INTO Games (name) VALUES ('Valorant');
+INSERT INTO Scores (user_id, game_id, score) VALUES (1, 1, 150);
+INSERT INTO Top10 (user_id, total_score) VALUES (1, 150);
+INSERT INTO Userprofiles (user_id, bio, location, date_of_birth, website, steamID, EpicID) VALUES (1, 'Loves competitive gaming', 'New York, USA', '1995-05-10', 'https://johndoe.com', 'steam12345', 'epic12345');
+
+-- Delete Commands
+DELETE FROM Users WHERE id = 1;
+DELETE FROM Games WHERE id = 2;
+DELETE FROM Scores WHERE id = 1;
+DELETE FROM Top10 WHERE id = 1;
+DELETE FROM Userprofiles WHERE user_id = 1;
+
+-- Update Commands
+UPDATE Users SET username = 'janedoe', email = 'janedoe@example.com' WHERE id = 1;
+UPDATE Games SET name = 'League of Legends' WHERE id = 1;
+UPDATE Scores SET score = 200 WHERE id = 1;
+UPDATE Top10 SET total_score = 200 WHERE user_id = 1;
+UPDATE Userprofiles SET bio = 'Enjoys gaming and streaming' WHERE user_id = 1;
+
+-- Search Commands
+SELECT * FROM Users WHERE username LIKE '%doe%';
+SELECT * FROM Games WHERE name LIKE '%of Legends%';
+SELECT * FROM Scores WHERE score > 100;
+SELECT * FROM Top10 WHERE total_score > 100;
+SELECT * FROM Userprofiles WHERE location LIKE '%USA%';
