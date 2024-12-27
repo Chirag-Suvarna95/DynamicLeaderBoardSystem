@@ -45,16 +45,16 @@ tr:nth-child(odd) {
 }
 /* Zebra striping for table rows */
 tr:nth-child(1) { 
-    background-color: #D4AF37; /* Gold for the first row */
-    font-weight: bold; /* Optional: make text bold for emphasis */
+    background-color: #D4AF37; 
+    font-weight: bold; 
 }
 tr:nth-child(2) { 
-    background-color: silver; /* Silver for the second row */
-    font-weight: bold; /* Optional: make text bold for emphasis */
+    background-color: silver; 
+    font-weight: bold; 
 }
 tr:nth-child(3) { 
-    background-color: #cd7f32; /* Bronze for the third row */
-    font-weight: bold; /* Optional: make text bold for emphasis */
+    background-color: #b46e28; 
+    font-weight: bold; 
 }
 
 

@@ -1,0 +1,58 @@
+Step 1: Mapping of Regular Entities
+
+Regular Entity Types
+1. Users: 
+   - Attributes: id, username, email, password
+   - Description: Represents individuals who register on the platform. Each user has a unique identifier (id) and can log in using their username and password. The email attribute is used for account verification and communication.
+
+2. Games: 
+   - Attributes: id, name
+   - Description: Represents the various games available for users to play. Each game is assigned a unique identifier (id) and has a name that distinguishes it from other games in the database.
+
+3. Scores: 
+   - Attributes: id, user_id, game_id, score, date_achieved
+   - Description: Links users to their performance in specific games by recording their scores. Each score entry includes a unique identifier (id), references the user (user_id) and the game (game_id), and captures the score achieved along with the date when it was recorded.
+
+4. Top10: 
+   - Attributes: id, user_id, total_score, date_updated
+   - Description: Maintains a leaderboard for the top 10 users based on their combined scores across all games. This table shows each user's total score and is updated automatically using triggers to reflect changes in scores as they occur.
+
+5. UserProfiles: 
+   - Attributes: user_id, bio, location, etc.
+   - Description: Contains additional information about users that enhances their profiles on the platform. This includes personal details such as a biography (bio), geographical location, and other relevant attributes that contribute to the user's online presence.
+
+---
+
+Step 2: Mapping of Weak Entity Types
+
+Weak Entity Types
+No weak entities are defined in the schema. All entities have a primary key or can be uniquely identified through their relationships with other entities.
+
+---
+
+Step 3: Mapping of Binary 1:1 Relation Types
+
+1:1 Relations
+- Users and UserProfiles have a 1:1 relationship. Each user has exactly one profile that contains detailed personal information linked directly to their account.
+
+---
+
+Step 4: Mapping of Binary 1:N Relation Types
+
+1:N Relations
+- Users to Scores: One user can have multiple scores recorded as they play different games or achieve new high scores.
+- Games to Scores: Each game can have multiple scores associated with it from different users who play and compete in that game.
+
+---
+
+Step 5: Mapping of Binary M:N Relation Types
+
+M:N Relations
+An M:N relationship exists between Users and Games indirectly through the Scores table. This means that multiple users can achieve scores for multiple games, establishing a many-to-many relationship where each score entry connects a specific user to a specific game.
+
+---
+
+Step 6: Mapping of Multivalued Attributes
+
+Multivalued Attributes
+No multivalued attributes are defined in the current schema. If there were attributes that could hold multiple values (e.g., multiple social media links), separate tables would be necessary to manage them effectively.
