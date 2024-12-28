@@ -1,0 +1,53 @@
+
+mysql> select * from userprofiles;
++---------+-------------------------------------------------+------------------+---------------+----------------------------+----------------+-----------------+
+| user_id | bio                                             | location         | date_of_birth | website                    | steamID        | EpicID          |
++---------+-------------------------------------------------+------------------+---------------+----------------------------+----------------+-----------------+
+|      15 | Streamer and AAA game enthusiast                | Mangalore, India | 1999-11-25    | https://AAAgamefan.com     | AAAFanatic     | 3AVibes         |
+|      16 | Passionate gamer and competitive esports player | Bangalore, India | 1995-06-10    | https://gamerhub.com       | gamerX123      | esportsChampion |
+|      17 | Casual gamer exploring new adventures           | Mumbai, India    | 1998-02-15    | https://casualgamerhub.com | casualExplorer | adventureSeeker |
++---------+-------------------------------------------------+------------------+---------------+----------------------------+----------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from userprofiles where user_id=15;
++---------+----------------------------------+------------------+---------------+------------------------+------------+---------+
+| user_id | bio                              | location         | date_of_birth | website                | steamID    | EpicID  |
++---------+----------------------------------+------------------+---------------+------------------------+------------+---------+
+|      15 | Streamer and AAA game enthusiast | Mangalore, India | 1999-11-25    | https://AAAgamefan.com | AAAFanatic | 3AVibes |
++---------+----------------------------------+------------------+---------------+------------------------+------------+---------+
+1 row in set (0.00 sec)
+
+mysql>
+-----------------------------------------------------------------------
++----+---------+-------------+
+| id | user_id | total_score |
++----+---------+-------------+
+| 41 |      16 |        5006 |
+| 43 |      17 |        2743 |
+| 48 |      15 |        2530 |
++----+---------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT id, user_id, total_score
+    -> FROM top10
+    -> WHERE total_score = (SELECT MAX(total_score) FROM top10);
++----+---------+-------------+
+| id | user_id | total_score |
++----+---------+-------------+
+| 41 |      16 |        5006 |
++----+---------+-------------+
+1 row in set (0.00 sec)
+------------------------------------------------------------------
+
+mysql> show tables
+    -> ;
++-----------------------------+
+| Tables_in_gamingleaderboard |
++-----------------------------+
+| games                       |
+| scores                      |
+| top10                       |
+| userprofiles                |
+| users                       |
++-----------------------------+
+5 rows in set (0.01 sec)
