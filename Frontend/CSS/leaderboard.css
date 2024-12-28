@@ -9,6 +9,11 @@ body {
    justify-content: center;
    align-items: center;
    overflow-y: auto; /* Allow vertical scrolling */
+   /*dlt this to remove background*/
+   background-image: url('../../OtherFiles/Images/games.jpg');
+   background-size: cover; /* Full body background */
+   background-repeat: repeat; /* Prevents body background from repeating */
+   height: 100vh;
 }
 
 h1 { 
