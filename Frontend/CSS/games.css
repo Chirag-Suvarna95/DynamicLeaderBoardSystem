@@ -1,8 +1,9 @@
-/* General Body Styles */
+
 body {
     font-family: Arial, sans-serif;
     text-align: center; /* Center align text */
-    background-image: url('../../OtherFiles/Images/games.jpg');
+    /* background-image: url('../../OtherFiles/Images/games.jpg'); */
+    background-color: rgb(28, 27, 29);
     background-size: cover; /* Full body background */
     background-repeat: no-repeat; /* Prevents body background from repeating */
     height: 100vh;
@@ -67,7 +68,7 @@ button {
     background-color: transparent; /* Transparent background to show image */
     color: white; /* Button text color (not used with images) */
     border: none; /* No border */
-    border-radius: 50%; /* Fully rounded corners for circular shape */
+    /* Fully rounded corners for circular shape */
     padding: 0; /* No padding since we are using an image */
     margin: 20px; /* Space between buttons */
     cursor: pointer; /* Pointer cursor on hover */
@@ -83,7 +84,8 @@ button {
 button img {
     width: 100%; /* Make image cover the button */
     height: 100%; /* Make image cover the button */
-    border-radius: 50%; /* Ensure image is circular as well */
+     /* Ensure image is circular as well */
+     border-radius: 50%;
     object-fit: cover; /* Cover the entire button area while maintaining aspect ratio */
 }
 

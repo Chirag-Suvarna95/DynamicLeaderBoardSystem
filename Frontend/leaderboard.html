@@ -67,18 +67,18 @@
                       // Update button
                       const updateButton = document.createElement('button');
                       updateButton.innerText = 'Update';
-                      updateButton.onclick = () => showUpdateInput(entry.id, entry.score); // Show input field for updating
+                      updateButton.onclick = () => showUpdateInput(entry.id, entry.score); 
 
                       // Delete button
                       const deleteButton = document.createElement('button');
                       deleteButton.innerText = 'Delete';
-                      deleteButton.onclick = () => deleteScore(entry.id); // Call delete function with score ID
+                      deleteButton.onclick = () => deleteScore(entry.id); 
 
                       actionCell.appendChild(updateButton);
                       actionCell.appendChild(deleteButton);
                       row.appendChild(actionCell);
                   } else {
-                      row.appendChild(document.createElement('td')); // Empty cell for non-owners
+                      row.appendChild(document.createElement('td')); 
                   }
                   
                   tbody.appendChild(row);

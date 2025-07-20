@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Open Trivia Quiz</title>
+    <link rel="stylesheet" href="CSS/quiz.css">
+
+</head>
+<body>
+    <h1>Open Trivia Quiz</h1>
+    <div id="quiz-area"></div>
+    <div id="result-area"></div>
+    <button id="start-quiz-btn">Start Quiz</button>
+
+    <script>
+        let quizQuestions = [];
+        let correctAnswers = [];
+        let userAnswers = [];
+
+        document.getElementById('start-quiz-btn').addEventListener('click', async () => {
+            userAnswers = [];
+            const res = await fetch('http://localhost:3000/start-quiz?amount=5');
+            const data = await res.json();
+            quizQuestions = data.questions;
+            correctAnswers = data.correctAnswers;
+            renderQuiz();
+        });
+
+        function renderQuiz() {
+            const quizArea = document.getElementById('quiz-area');
+            quizArea.innerHTML = '';
+            quizQuestions.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <p>${idx + 1}. ${q.question}</p>
+                    ${q.answers.map(ans => `
+                      <label>
+                        <input type="radio" name="q${idx}" value="${ans}" />
+                        ${ans}
+                      </label><br/>
+                    `).join('')}
+                `;
+                quizArea.appendChild(div);
+            });
+            const submitBtn = document.createElement('button');
+            submitBtn.textContent = 'Submit Quiz';
+            submitBtn.onclick = handleQuizSubmit;
+            quizArea.appendChild(submitBtn);
+        }
+
+        async function handleQuizSubmit() {
+            userAnswers = quizQuestions.map((_, i) => {
+                const radios = document.getElementsByName('q' + i);
+                for (const radio of radios) {
+                    if (radio.checked) return radio.value;
+                }
+                return null;
+            });
+
+            const token = localStorage.getItem('token');
+            if (!token) return alert('You must be logged in to submit the quiz.');
+            const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+            // Fetch the game ID for "Open Trivia Quiz"
+            const gameRes = await fetch('http://localhost:3000/games');
+            const games = await gameRes.json();
+            const quizGame = games.find(g => g.name === 'Open Trivia Quiz');
+            if (!quizGame) {
+                alert('Open Trivia Quiz is not configured in the games table.');
+                return;
+            }
+            const gameId = quizGame.id;
+
+            const response = await fetch('http://localhost:3000/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId, game_id: gameId, userAnswers, correctAnswers }),
+            });
+            const data = await response.json();
+            document.getElementById('result-area').innerText =
+                'Quiz submitted! Your score: ' + data.score + ' out of ' + quizQuestions.length;
+            document.getElementById('quiz-area').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

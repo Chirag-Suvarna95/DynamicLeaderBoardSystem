@@ -41,9 +41,11 @@ button {
 
 button:hover { 
    background-color:#e25555; /* Darker shade on hover */
+   
 }
 
 #feedback-message { 
    text-align:center; 
-   color:red; /* Error message color */
+   color:rgb(240, 240, 240); /* Error message color */
+   font-size: large;
 }

@@ -1,125 +1,197 @@
-// Handle user login/register
-document.getElementById('authBtn').addEventListener('click', async () => {
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
+// ==============================================
+// Auth: Register and Login Handlers
+// ==============================================
 
-    const response = await fetch('http://localhost:3000/users', {
+// Registration handler
+document.getElementById('registerBtn')?.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const username = document.getElementById('reg-username').value;
+    const email = document.getElementById('reg-email').value;
+    const password = document.getElementById('reg-password').value;
+
+    const response = await fetch('http://localhost:3000/register', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, email }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
     });
 
     if (response.ok) {
-        showFeedback('Login/Register successful!');
-        clearAuthFields(); // Clear input fields after successful login/register
-        document.getElementById('auth-section').style.display = 'none';
-        document.getElementById('score-section').style.display = 'block';
-        fetchLeaderboard(); // Fetch leaderboard after login
+        showFeedback('Registration successful! You can now log in.');
+        clearAuthFields('register');
+        window.location.href = 'index.html';
     } else {
-        showFeedback('Error logging in. Please try again.');
+        const errorData = await response.json();
+        showFeedback(errorData.error || 'Registration failed.');
     }
 });
 
-// Function to clear authentication input fields
-function clearAuthFields() {
-    document.getElementById('username').value = '';
-    document.getElementById('email').value = '';
+// Login handler
+document.getElementById('loginBtn')?.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('log-email').value;
+    const password = document.getElementById('log-password').value;
+
+    const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.userId); // Store userId for later use
+        showFeedback('Login successful!');
+        clearAuthFields('login');
+        window.location.href = 'games.html';
+    } else {
+        const errorData = await response.json();
+        showFeedback(errorData.error || 'Login failed.');
+    }
+});
+
+// Clear authentication input fields
+function clearAuthFields(formType) {
+    if (formType === 'register') {
+        document.getElementById('reg-username').value = '';
+        document.getElementById('reg-email').value = '';
+        document.getElementById('reg-password').value = '';
+    }
+    if (formType === 'login') {
+        document.getElementById('log-email').value = '';
+        document.getElementById('log-password').value = '';
+    }
 }
 
-// Handle score submission
-document.getElementById('submitScoreBtn').addEventListener('click', async () => {
+// ==============================================
+// Score Submission Handler
+// ==============================================
+
+document.getElementById('submitScoreBtn')?.addEventListener('click', async () => {
     const game = document.getElementById('game-select').value;
     const score = document.getElementById('score-input').value;
+    const userId = localStorage.getItem('userId');
+
+    if (!userId) {
+        showFeedback('You must be logged in to submit a score.');
+        return;
+    }
 
     const response = await fetch('http://localhost:3000/submit-score', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ game_id: game, score }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ game_id: game, score, user_id: userId }),
     });
 
     if (response.ok) {
         showFeedback('Score submitted successfully!');
-        clearScoreFields(); // Clear input fields after successful score submission
-        fetchLeaderboard(); // Refresh leaderboard after submission
+        clearScoreFields();
+        fetchLeaderboard();
     } else {
-        showFeedback('Error submitting score. Please try again.');
+        const errorData = await response.json();
+        showFeedback(errorData.error || 'Error submitting score. Please try again.');
     }
 });
 
-// Function to clear score input fields
+// Clear score input fields
 function clearScoreFields() {
-    document.getElementById('game-select').selectedIndex = 0; // Reset select dropdown
-    document.getElementById('score-input').value = ''; // Clear score input
+    document.getElementById('game-select').selectedIndex = 0;
+    document.getElementById('score-input').value = '';
 }
 
-// Function to show feedback messages
-function showFeedback(message) {
-   const feedbackSection = document.getElementById('feedback-section');
-   const feedbackMessage = document.getElementById('feedback-message');
-   
-   feedbackMessage.textContent = message;
-   feedbackSection.style.display = 'block';
-   
-   // Hide after a few seconds
-   setTimeout(() => {
-       feedbackSection.style.display = 'none';
-   }, 3000);
-}
+// ==============================================
+// Leaderboard Fetching Per Game
+// ==============================================
 
-// Function to fetch and display the leaderboard
 async function fetchLeaderboard() {
-   const response = await fetch('http://localhost:3000/leaderboard');
-   
-   if (response.ok) {
-       const leaderboard = await response.json();
-       
-       // Update the leaderboard display
-       const leaderboardBody = document.querySelector('#leaderboard tbody');
-       leaderboardBody.innerHTML = ''; // Clear existing leaderboard
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameId = urlParams.get('gameId') || document.getElementById('game-select')?.value; // fallback if not in URL
 
-       leaderboard.forEach((entry, index) => {
-           const newRow = document.createElement('tr');
-           newRow.innerHTML = `
-               <td>${index + 1}</td>
-               <td>${entry.game_name}</td>
-               <td>${entry.username}</td>
-               <td>${entry.score}</td>
-               <td>${new Date(entry.date_achieved).toLocaleString()}</td>
-               <td><button class="delete-btn" data-id="${entry.id}">Delete</button></td> <!-- Added delete button -->
-           `;
-           leaderboardBody.appendChild(newRow);
-       });
+    if (!gameId) {
+        showFeedback('No game selected for leaderboard.');
+        return;
+    }
 
-       // Add event listeners for delete buttons
-       document.querySelectorAll('.delete-btn').forEach(button => {
-           button.addEventListener('click', async (event) => {
-               const scoreId = event.target.getAttribute('data-id');
-               await deleteScore(scoreId);
-           });
-       });
-       
-   } else {
-       showFeedback('Error fetching leaderboard. Please try again.');
-   }
+    const response = await fetch(`http://localhost:3000/leaderboard/${gameId}`);
+
+    if (response.ok) {
+        const leaderboard = await response.json();
+        const leaderboardBody = document.querySelector('#leaderboard tbody');
+        leaderboardBody.innerHTML = '';
+
+        leaderboard.forEach((entry, index) => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${entry.username}</td>
+                <td>${entry.score}</td>
+                <td>${new Date(entry.date_achieved).toLocaleString()}</td>
+                <td>
+                    ${localStorage.getItem('userId') == entry.user_id
+                        ? `<button class="delete-btn" data-id="${entry.id}">Delete</button>`
+                        : ''}
+                </td>
+            `;
+            leaderboardBody.appendChild(newRow);
+        });
+
+        // Add event listeners for delete buttons
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const scoreId = event.target.getAttribute('data-id');
+                await deleteScore(scoreId);
+            });
+        });
+    } else {
+        showFeedback('Error fetching leaderboard. Please try again.');
+    }
 }
 
-// Function to delete a score
+// ==============================================
+// Score Deletion Handler
+// ==============================================
+
 async function deleteScore(scoreId) {
-   const response = await fetch(`http://localhost:3000/delete-score/${scoreId}`, {
-       method: 'DELETE',
-   });
+    const userId = localStorage.getItem('userId');
+    const response = await fetch(`http://localhost:3000/delete-score/${scoreId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId }),
+    });
 
-   if (response.ok) {
-       showFeedback('Score deleted successfully!');
-       fetchLeaderboard(); // Refresh leaderboard after deletion
-   } else {
-       showFeedback('Error deleting score. Please try again.');
-   }
+    if (response.ok) {
+        showFeedback('Score deleted successfully!');
+        fetchLeaderboard();
+    } else {
+        const errorData = await response.json();
+        showFeedback(errorData.error || 'Error deleting score. Please try again.');
+    }
 }
 
-// Initial leaderboard fetch when the page loads
-document.addEventListener('DOMContentLoaded', fetchLeaderboard);
+// ==============================================
+// Feedback Message Display
+// ==============================================
+
+function showFeedback(message) {
+    const feedbackSection = document.getElementById('feedback-section');
+    const feedbackMessage = document.getElementById('feedback-message');
+    if (feedbackSection && feedbackMessage) {
+        feedbackMessage.textContent = message;
+        feedbackSection.style.display = 'block';
+        setTimeout(() => {
+            feedbackSection.style.display = 'none';
+        }, 3000);
+    } else {
+        alert(message);
+    }
+}
+
+// ==============================================
+// Initial Leaderboard Fetch (on page load, if appropriate)
+// ==============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.querySelector('#leaderboard')) {
+        fetchLeaderboard();
+    }
+});

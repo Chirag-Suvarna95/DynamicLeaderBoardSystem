@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gaming Leaderboard - Login</title>
     <link rel="icon" href="../OtherFiles/Images/favicon.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="CSS/login.css"> <!-- Link to login.css -->
+    <link rel="stylesheet" href="CSS/login.css"> 
 </head>
 <body>
     <h1>Login</h1>
@@ -32,8 +32,8 @@
 
           if (response.ok) {
               const data = await response.json();
-              localStorage.setItem('token', data.token); // Store token in local storage
-              window.location.href = 'games.html'; // Redirect to games page
+              localStorage.setItem('token', data.token); 
+              window.location.href = 'games.html'; 
           } else {
               document.getElementById('feedback-message').innerText = 'Login failed. Please try again.';
           }

@@ -1,0 +1,14 @@
+USERPROFILES to "Has Profile"
+Total participation from USERPROFILES to "Has Profile" means every userprofile MUST be associated with a user
+Partial Participation from USERS to "Has Profile" means users MAY or MAY NOT have a profile
+This matches our schema where USERPROFILES has a NOT NULL user_id foreign key
+
+TOP10 to "Ranks In"
+Double line from TOP10 to "Ranks In" means every TOP10 record MUST be associated with a user
+Single line from USERS to "Ranks In" means users MAY or MAY NOT be in TOP10
+This matches our schema where TOP10 has a NOT NULL user_id foreign key
+
+SCORES to "Achieves" and "Has"
+Double lines from SCORES to both relationships means every score MUST have both a user and a game
+Single lines from both USERS and GAMES means users and games MAY or MAY NOT have scores
+This matches our schema where SCORES has NOT NULL user_id and game_id foreign keys

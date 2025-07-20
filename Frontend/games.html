@@ -9,71 +9,71 @@
 </head>
 <body>
     <nav class="navbar">
-    <p class="navbar-title">Select a Game</p>
-    <ul class="navbar-menu">
-        <li class="navbar-item">
-            <button id="profile-button">Go to Your Gamer Profile </button>
-        </li>
-    </ul>
-</nav>
-
+        <p class="navbar-title">Select a Game</p>
+        <ul class="navbar-menu">
+            <li class="navbar-item">
+                <button id="profile-button">Go to Your Gamer Profile</button>
+            </li>
+        </ul>
+    </nav>
 
     <div id="games-list"></div>
 
-    
     <div id="top10-button-container">
         <button id="top10-button">Top 10 Player Ranking</button>
     </div>
 
     <script>
-      async function fetchGames() {
-          const response = await fetch('http://localhost:3000/games');
-          if (response.ok) {
-              const games = await response.json();
-              const gamesListDiv = document.getElementById('games-list');
-              games.forEach(game => {
-                  const button = document.createElement('button');
-                  
-                  // Create an image element
-                  const img = document.createElement('img');
-                  img.src = `../OtherFiles/Images/${game.name}.jpg`; // Set the image source based on game name
-                  img.alt = `${game.name} logo`; // Alt text for accessibility
+        async function fetchGames() {
+            const response = await fetch('http://localhost:3000/games');
+            if (response.ok) {
+                const games = await response.json();
+                const gamesListDiv = document.getElementById('games-list');
+                gamesListDiv.innerHTML = '';
 
-                  // Append image to button
-                  button.appendChild(img);
-                  
-                  // Set up click event to redirect to leaderboard page
-                  button.onclick = () => window.location.href=`leaderboard.html?gameId=${game.id}`; 
-                  
-                  // Append button to the games list
-                  gamesListDiv.appendChild(button);
-              });
-          } else {
-              alert('Failed to load games.');
-          }
-      }
+                games.forEach(game => {
+                    const button = document.createElement('button');
+                    
+                    // Create an image element
+                    const img = document.createElement('img');
+                    img.src = `../OtherFiles/Images/${game.name}.jpg`; // Set the image source based on game name
+                    img.alt = `${game.name} logo`; // Alt text for accessibility
 
-      // Set up click event for Top 10 button
-      document.getElementById('top10-button').onclick = () => {
-          window.location.href = 'top10.html'; // Redirect to top10.html
-      };
+                    // Append image to button
+                    button.appendChild(img);
 
-      // Function to redirect to profile page
-      function goToProfile() {
-          const userId = localStorage.getItem('userId'); // Retrieve user ID from local storage
-          if (userId) {
-              window.location.href = `profile.html?id=${userId}`; // Redirect with user ID
-          } else {
-              alert('User ID not found! Please log in again.');
-              window.location.href = 'login.html'; // Redirect to login if no user ID
-          }
-      }
+                    // Set up click event:
+                    if (game.name === 'Open Trivia Quiz') {
+                        button.onclick = () => window.location.href = 'quiz.html';
+                    } else {
+                        button.onclick = () => window.location.href = `leaderboard.html?gameId=${game.id}`; 
+                    }
 
-      // Attach goToProfile function to profile button click event
-      document.getElementById('profile-button').onclick = goToProfile;
+                    // Append button to the games list
+                    gamesListDiv.appendChild(button);
+                });
+            } else {
+                alert('Failed to load games.');
+            }
+        }
 
-      // Fetch games when the page loads
-      fetchGames();
+        document.getElementById('top10-button').onclick = () => {
+            window.location.href = 'top10.html'; 
+        };
+
+        function goToProfile() {
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                window.location.href = `profile.html?id=${userId}`; 
+            } else {
+                alert('User ID not found! Please log in again.');
+                window.location.href = 'login.html'; 
+            }
+        }
+
+        document.getElementById('profile-button').onclick = goToProfile;
+
+        fetchGames();
     </script>
 </body>
 </html>
